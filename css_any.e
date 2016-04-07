@@ -9,12 +9,7 @@ note
 class
 	CSS_ANY
 
-feature -- Documentation
-
-	documentation: detachable CSS_DOCS
-			-- `documentation' of Current {CSS_ANY}
-
-;note
+note
 	root_class: "[
 		The purpose of the CSS_ANY is to be a root class for the entire CSS library.
 		Like its ANY counterpart, all CSS library classes must inherit directly or

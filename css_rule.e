@@ -29,26 +29,6 @@ feature -- Access
 			create Result.make (10)
 		end
 
-feature -- Settings
-
-	add_class_selector (a_name: STRING)
-			-- `add_class_selector' to `selectors'.
-		do
-			selectors.force ("." + a_name)
-		end
-
-	add_id_selector (a_name: STRING)
-			-- `add_id_selector' to `selectors'.
-		do
-			selectors.force ("#" + a_name)
-		end
-
-	add_all_selector
-			-- `add_all_selector' to `selectors'.
-		do
-			selectors.force ("*")
-		end
-
 feature -- Attributes
 
 	attribute_list: HASH_TABLE [attached like attribute_tuple_anchor, STRING]
@@ -75,6 +55,26 @@ feature -- Attributes
 	color: 				attached like attribute_tuple_anchor attribute Result := ["", "", Void, "color", is_quoted] end
 	page_break_inside:	attached like attribute_tuple_anchor attribute Result := ["auto", "auto|avoid|initial|inherit", Void, "page-break-inside", is_unquoted] end
 
+
+feature -- Settings
+
+	add_class_selector (a_name: STRING)
+			-- `add_class_selector' to `selectors'.
+		do
+			selectors.force ("." + a_name)
+		end
+
+	add_id_selector (a_name: STRING)
+			-- `add_id_selector' to `selectors'.
+		do
+			selectors.force ("#" + a_name)
+		end
+
+	add_all_selector
+			-- `add_all_selector' to `selectors'.
+		do
+			selectors.force ("*")
+		end
 
 feature -- Output
 

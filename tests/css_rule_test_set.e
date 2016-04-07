@@ -41,7 +41,7 @@ feature -- Test routines
 			create l_rule
 			l_rule.add_all_selector
 			l_rule.set_attribute_value (agent l_rule.color, "black")
-			assert_strings_equal ("all", "* {color:black}", l_rule.out)
+			assert_strings_equal ("all", "* {color:%"black%";}", l_rule.out)
 		end
 
 end

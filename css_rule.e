@@ -17,7 +17,8 @@ inherit
 			default_create,
 			out
 		redefine
-			attribute_list
+			attribute_list,
+			key_value_separator
 		end
 
 feature -- Access
@@ -57,7 +58,10 @@ feature -- Attributes
 			Result.force (align_content, align_content.attr_name)
 			Result.force (align_items, align_items.attr_name)
 			Result.force (align_self, align_self.attr_name)
+			Result.force (border, border.attr_name)
+			Result.force (border_collapse, border_collapse.attr_name)
 			Result.force (color, color.attr_name)
+			Result.force (page_break_inside, page_break_inside.attr_name)
 		ensure then
 			count: Result.count >= Default_capacity
 			matching: across Result as ic all ic.key.same_string (ic.item.attr_name) end
@@ -66,7 +70,11 @@ feature -- Attributes
 	align_content: 		attached like attribute_tuple_anchor attribute Result := ["stretch", "stretch|center|flex-start|flex-end|space-between|space-around|initial|inherit", Void, "align-content", is_unquoted] end
 	align_items: 		attached like attribute_tuple_anchor attribute Result := ["stretch", "stretch|center|flex-start|flex-end|space-between|space-around|initial|inherit", Void, "align-items", is_unquoted] end
 	align_self: 		attached like attribute_tuple_anchor attribute Result := ["stretch", "stretch|center|flex-start|flex-end|space-between|space-around|initial|inherit", Void, "align-self", is_unquoted] end
+	border:				attached like attribute_tuple_anchor attribute Result := ["", "", Void, "border", is_unquoted] end
+	border_collapse:	attached like attribute_tuple_anchor attribute Result := ["separate", "separate|collapse|initial|inherit", Void, "border-collapse", is_unquoted] end
 	color: 				attached like attribute_tuple_anchor attribute Result := ["", "", Void, "color", is_quoted] end
+	page_break_inside:	attached like attribute_tuple_anchor attribute Result := ["auto", "auto|avoid|initial|inherit", Void, "page-break-inside", is_unquoted] end
+
 
 feature -- Output
 
@@ -81,17 +89,8 @@ feature -- Output
 				Result.append_character (' ')
 			end
 			Result.append_character ('{')
-			across
-				attribute_list as ic_declarations
-			loop
-				Result.append_string (ic_declarations.item.attr_name)
-				Result.append_character (':')
-				check string_values: attached {STRING} ic_declarations.item.attr_value as al_value then
-					Result.append_string (al_value)
-				end
-				Result.append_character (';')
-			end
-			Result.remove_tail (1)
+			Result.append_string (attributes_out)
+			Result.append_character (';')
 			Result.append_character ('}')
 		end
 
@@ -99,6 +98,10 @@ feature {NONE} -- Implementation: Anchors
 
 	declaration_anchor: detachable TUPLE [property, value: STRING]
 
-	Default_capacity: INTEGER = 4
+	Default_capacity: INTEGER = 7
+
+	key_value_separator: STRING
+			-- <Precursor>
+		once ("object") Result := ":" end
 
 end

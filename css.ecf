@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<system xmlns="http://www.eiffel.com/developers/xml/configuration-1-15-0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.eiffel.com/developers/xml/configuration-1-15-0 http://www.eiffel.com/developers/xml/configuration-1-15-0.xsd" name="css" uuid="2D1BC207-70B3-3605-B80D-00000D498A9B" readonly="false">
+<system xmlns="http://www.eiffel.com/developers/xml/configuration-1-15-0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.eiffel.com/developers/xml/configuration-1-15-0 http://www.eiffel.com/developers/xml/configuration-1-15-0.xsd" name="css" uuid="7D054CCD-1396-412B-A178-55A8E0DFA6A0" readonly="false" library_target="css">
 	<description>css implementation</description>
 	<target name="css">
 		<root all_classes="true"/>
@@ -9,7 +9,6 @@
 		<setting name="console_application" value="true"/>
 		<library name="base" location="$ISE_LIBRARY\library\base\base-safe.ecf"/>
 		<library name="framework" location="$GITHUB\framework\framework.ecf"/>
-		<library name="html" location="$GITHUB\html\html.ecf"/>
 		<library name="test_extension" location="$GITHUB\test_extension\test_extension.ecf"/>
 		<cluster name="css" location=".\" recursive="true">
 			<file_rule>

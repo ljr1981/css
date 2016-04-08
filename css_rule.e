@@ -86,6 +86,10 @@ feature -- Output
 				selectors as ic_selectors
 			loop
 				Result.append_string (ic_selectors.item)
+				Result.append_character (',')
+			end
+			if not Result.is_empty then
+				Result.remove_tail (1)
 				Result.append_character (' ')
 			end
 			Result.append_character ('{')

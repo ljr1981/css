@@ -13,7 +13,7 @@ note
 	design: "[
 		HTML provides structure for data: DOM
 			HTML structures can be isolated into components (e.g. navigation)
-		CSS provides static rendering rules for the data in the DOM
+		CSS provides static/dynamic rendering rules for the data in the DOM
 		JS provides dynamic rendering programs for the DOM data and new data
 		
 		Themes offer a common framework for HTML, CSS, and JS.
@@ -73,7 +73,7 @@ note
 		(5) Behavior
 		(6) ???
 		
-		
+
 		]"
 
 end

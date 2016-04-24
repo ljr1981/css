@@ -31,6 +31,11 @@ inherit
 			default_create
 		end
 
+	CSS_CONSTANTS
+		undefine
+			default_create
+		end
+
 feature -- Test routines
 
 	css_rule_creation_tests

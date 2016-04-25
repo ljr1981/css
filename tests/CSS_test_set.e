@@ -32,6 +32,7 @@ feature -- Test routines
 			-- `CSS_tests'
 		local
 			l_rule: CSS_RULE
+			l_selector: CSS_SELECTOR
 		do
 			do_nothing -- yet ...
 		end

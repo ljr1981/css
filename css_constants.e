@@ -85,7 +85,7 @@ feature -- Access
 				--:visited	a:visited	Selects all visited links
 		end
 
-	pseudo_elements: ARRAYED_LIST [STRING]
+	pseudo_elements: ARRAYED_LIST [TUPLE [name: STRING; has_argument: BOOLEAN; opt_argument_name: detachable STRING]]
 		once
 			create Result.make (200)
 			--All CSS Pseudo Elements

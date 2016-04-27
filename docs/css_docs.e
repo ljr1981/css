@@ -9,7 +9,12 @@ note
 deferred class
 	CSS_DOCS
 
-note
+feature -- Documentation
+
+	bem_docs: detachable CSS_DOCS_BEM
+			-- `bem_docs' of Current.
+
+;note
 	design: "[
 		HTML provides structure for data: DOM
 			HTML structures can be isolated into components (e.g. navigation)
@@ -72,7 +77,7 @@ note
 		(4) Flow
 		(5) Behavior
 		(6) ???
-		
+
 
 		]"
 

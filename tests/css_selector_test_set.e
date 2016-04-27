@@ -72,6 +72,13 @@ feature -- Test routines
 			check attached l_selector.id as al_id then
 				assert_strings_equal ("set_id", "1234567890", al_id)
 			end
+				-- BEM tests
+			create l_selector.make_bem_based (create {BEM_BLOCK}.make ("person", Void))
+			assert_strings_equal ("bem1", ".person", l_selector.out)
+			create l_selector.make_bem_based (create {BEM_BLOCK}.make_with_element ("person", "female"))
+			assert_strings_equal ("bem2", ".person__female", l_selector.out)
+			create l_selector.make_bem_based (create {BEM_BLOCK}.make_with_element_and_modifier ("person", "female","hand"))
+			assert_strings_equal ("bem2", ".person__female--hand", l_selector.out)
 		end
 
 end

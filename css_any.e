@@ -1,6 +1,6 @@
 note
 	description: "[
-		Abstract notion of {CSS_DOCS}.
+		Abstract notion of {CSS_DOCS} root library class.
 		]"
 	design: "[
 		See note clause at the end of this class.
@@ -9,7 +9,12 @@ note
 class
 	CSS_ANY
 
-note
+feature -- Documentation
+
+	documentation: detachable CSS_DOCS
+			-- `documentation' of Current.
+
+;note
 	root_class: "[
 		The purpose of the CSS_ANY is to be a root class for the entire CSS library.
 		Like its ANY counterpart, all CSS library classes must inherit directly or

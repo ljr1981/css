@@ -26,6 +26,7 @@ create
 	default_create,
 	make_for_all,
 	make_class_based,
+	make_bem_based,
 	make_tag_based,
 	make_pseudo_class_based,
 	make_id_based
@@ -42,6 +43,12 @@ feature {NONE} -- Initialization
 			-- `make_as_class_based' with `a_name' to `class_name'.
 		do
 			set_class_name (a_name)
+		end
+
+	make_bem_based (a_bem_block: attached like bem_block)
+			-- `make_bem_based' with `a_bem_block' to `bem_block'.
+		do
+			set_bem_block (a_bem_block)
 		end
 
 	make_id_based (a_id: attached like id)
@@ -66,6 +73,16 @@ feature -- Access
 
 	class_name: detachable STRING
 			-- Optional `class_name'.
+		do
+			if attached internal_class_name as al_name then
+				Result := al_name
+			elseif attached bem_block as al_bem_block then
+				Result := al_bem_block.out
+			end
+		end
+
+	bem_block: detachable BEM_BLOCK
+			-- Optional `bem_block' (vs. `internal_class_name')
 
 	tag_name: detachable STRING
 			-- Optional `tag_name'.
@@ -82,7 +99,7 @@ feature -- Settings
 			-- `set_class_name' with `a_name'.
 			-- Reset others to Void.
 		do
-			class_name := a_name
+			internal_class_name := a_name
 			id := Void
 			tag_name := Void
 			pseudo_class_name := Void
@@ -91,11 +108,21 @@ feature -- Settings
 			not_set: not attached tag_name and not attached pseudo_class_name and not attached id
 		end
 
+	set_bem_block (a_bem_block: attached like bem_block)
+			-- `set_bem_block' with `a_bem_block'.
+		do
+			bem_block := a_bem_block
+		ensure
+			set: attached class_name as al_name and then al_name.same_string (a_bem_block.out)
+			not_set: not attached tag_name and not attached pseudo_class_name and not attached id
+		end
+
 	set_id (a_id: attached like id)
 			-- `set_class_name' with `a_id'.
 			-- Reset others to Void.
 		do
-			class_name := Void
+			internal_class_name := Void
+			bem_block := Void
 			id := a_id
 			tag_name := Void
 			pseudo_class_name := Void
@@ -108,7 +135,8 @@ feature -- Settings
 			-- `set_tag_name' with `a_name'.
 			-- Reset others to Void.
 		do
-			class_name := Void
+			internal_class_name := Void
+			bem_block := Void
 			id := Void
 			tag_name := a_name
 			pseudo_class_name := Void
@@ -121,7 +149,8 @@ feature -- Settings
 			-- `set_pseudo_class_name' with `a_class_name'.
 			-- Reset others to Void.
 		do
-			class_name := Void
+			internal_class_name := Void
+			bem_block := Void
 			id := Void
 			tag_name := a_tag
 			pseudo_class_name := a_class_name
@@ -186,6 +215,9 @@ feature {NONE} -- Implementation: Outputs
 		end
 
 feature {NONE} -- Implementation
+
+	internal_class_name: detachable STRING
+			-- Optional `internal_class_name'.
 
 	formatted_selector_out (a_character: CHARACTER; a_selector: STRING): STRING
 		require

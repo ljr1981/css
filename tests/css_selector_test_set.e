@@ -47,7 +47,7 @@ feature -- Test routines
 				-- Effort to break the class invariant
 			create l_selector
 			create l_selector.make_for_all
-			check attached l_selector.class_name as al_name then assert_strings_equal ("class0", "*", al_name) end
+			check attached l_selector.tag_name as al_name then assert_strings_equal ("tag0", "*", al_name) end
 			l_selector.set_pseudo_class_name ("a", "hover")
 			check attached l_selector.tag_name as al_name then assert_strings_equal ("tag1", "a", al_name) end
 			check attached l_selector.pseudo_class_name as al_name then assert_strings_equal ("pseudo1", "hover", al_name) end
@@ -56,7 +56,7 @@ feature -- Test routines
 			check attached l_selector.class_name as al_name then assert_strings_equal ("class1", "my_class", al_name) end
 			l_selector.set_tag_name ("h1")
 			check attached l_selector.tag_name as al_name then assert_strings_equal ("tag2", "h1", al_name) end
-			create l_selector.make_pseudo_class_based ("p", "Hover")
+			create l_selector.make_pseudo_class_based ("p", "hover")
 			check attached l_selector.tag_name as al_name then assert_strings_equal ("tag3", "p", al_name) end
 			check attached l_selector.pseudo_class_name as al_name then assert_strings_equal ("pseudo2", "hover", al_name) end
 			l_selector.set_class_name ("my_class")

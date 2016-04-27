@@ -54,6 +54,8 @@ feature {CSS_RULE, TEST_SET_BRIDGE} -- Settings
 
 	add_value (a_value: attached like value_anchor)
 			-- `add_value' `a_value' to `values'.
+		require
+			consistent: a_value.is_quoted implies not attached a_value.unit_of_measure
 		do
 			values.force (a_value)
 		ensure
@@ -73,7 +75,13 @@ feature {CSS_RULE, TEST_SET_BRIDGE} -- Output
 			across
 				values as ic_values
 			loop
+				if ic_values.item.is_quoted then
+					Result.append_character ('"')
+				end
 				Result.append_string (ic_values.item.value)
+				if ic_values.item.is_quoted then
+					Result.append_character ('"')
+				end
 				if attached ic_values.item.unit_of_measure as al_uom then
 					Result.append_string (al_uom)
 				end
@@ -86,7 +94,7 @@ feature {CSS_RULE, TEST_SET_BRIDGE} -- Output
 
 feature {NONE} -- Implementation: Anchors
 
-	value_anchor: detachable TUPLE [value: STRING; unit_of_measure, value_name: detachable STRING]
+	value_anchor: detachable TUPLE [value: STRING; is_quoted: BOOLEAN; unit_of_measure, value_name: detachable STRING]
 			-- `value_anchor' for `values' and `add_value'.
 
 ;note

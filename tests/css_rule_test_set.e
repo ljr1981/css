@@ -45,8 +45,8 @@ feature -- Test routines
 		do
 			create l_rule
 			l_rule.add_all_selector
-			l_rule.set_attribute_value (agent l_rule.color, "black")
-			assert_strings_equal ("all", "* {color:%"black%";}", l_rule.out)
+			l_rule.declarations.force (create {CSS_DECLARATION}.make ("color", <<["black", is_quoted, no_uom, no_name]>>))
+			assert_strings_equal ("all_color_black", "* {color:%"black%";}", l_rule.out)
 		end
 
 end

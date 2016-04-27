@@ -99,6 +99,7 @@ feature -- Access
 
 feature {NONE} -- Implementation: Constants
 
+	is_quoted: BOOLEAN = True
 	has_argument: BOOLEAN = True
 	void_argument_name: detachable STRING once Result := Void end
 	no_uom: detachable STRING once Result := Void end

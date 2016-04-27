@@ -2,6 +2,9 @@ note
 	description: "[
 		Representation of a {CSS_RULE}.
 		]"
+	design: "[
+		See notes at the end of this class.
+		]"
 
 class
 	CSS_RULE
@@ -12,15 +15,6 @@ inherit
 			out
 		end
 
-	FW_ATTRIBUTE_HELPER
-		undefine
-			default_create,
-			out
-		redefine
-			attribute_list,
-			key_value_separator
-		end
-
 feature -- Access
 
 	selectors: ARRAYED_LIST [CSS_SELECTOR]
@@ -29,34 +23,13 @@ feature -- Access
 			create Result.make (10)
 		end
 
-feature -- Attributes
-
-	attribute_list: HASH_TABLE [attached like attribute_tuple_anchor, STRING]
-			-- `attribute_list'.
-		do
-			create Result.make (Default_capacity)
-			Result.force (align_content, align_content.attr_name)
-			Result.force (align_items, align_items.attr_name)
-			Result.force (align_self, align_self.attr_name)
-			Result.force (border, border.attr_name)
-			Result.force (border_collapse, border_collapse.attr_name)
-			Result.force (color, color.attr_name)
-			Result.force (page_break_inside, page_break_inside.attr_name)
-		ensure then
-			count: Result.count >= Default_capacity
-			matching: across Result as ic all ic.key.same_string (ic.item.attr_name) end
+	declarations: ARRAYED_LIST [CSS_DECLARATION]
+			-- `declarations' used for Current {CSS_RULE}.
+		attribute
+			create Result.make (10)
 		end
 
-	align_content: 		attached like attribute_tuple_anchor attribute Result := ["stretch", "stretch|center|flex-start|flex-end|space-between|space-around|initial|inherit", Void, "align-content", is_unquoted] end
-	align_items: 		attached like attribute_tuple_anchor attribute Result := ["stretch", "stretch|center|flex-start|flex-end|space-between|space-around|initial|inherit", Void, "align-items", is_unquoted] end
-	align_self: 		attached like attribute_tuple_anchor attribute Result := ["stretch", "stretch|center|flex-start|flex-end|space-between|space-around|initial|inherit", Void, "align-self", is_unquoted] end
-	border:				attached like attribute_tuple_anchor attribute Result := ["", "", Void, "border", is_unquoted] end
-	border_collapse:	attached like attribute_tuple_anchor attribute Result := ["separate", "separate|collapse|initial|inherit", Void, "border-collapse", is_unquoted] end
-	color: 				attached like attribute_tuple_anchor attribute Result := ["", "", Void, "color", is_quoted] end
-	page_break_inside:	attached like attribute_tuple_anchor attribute Result := ["auto", "auto|avoid|initial|inherit", Void, "page-break-inside", is_unquoted] end
-
-
-feature -- Settings
+feature -- Settings: Selectors
 
 	add_class_selector (a_name: STRING)
 			-- `add_class_selector' to `selectors'.
@@ -94,30 +67,45 @@ feature -- Output
 			-- <Precursor>
 		do
 			create Result.make_empty
+
 			across
 				selectors as ic_selectors
 			loop
 				Result.append_string (ic_selectors.item.out)
 				Result.append_character (',')
 			end
+
 			if not Result.is_empty then
 				Result.remove_tail (1)
 				Result.append_character (' ')
 			end
+
 			Result.append_character ('{')
-			Result.append_string (attributes_out)
-			Result.append_character (';')
+
+			across
+				declarations as ic_declarations
+			loop
+				Result.append_string (ic_declarations.item.out)
+			end
+
 			Result.append_character ('}')
 		end
 
-feature {NONE} -- Implementation: Anchors
-
-	declaration_anchor: detachable TUPLE [property, value: STRING]
-
-	Default_capacity: INTEGER = 7
-
-	key_value_separator: STRING
-			-- <Precursor>
-		once ("object") Result := ":" end
+;note
+	design: "[
+		A {CSS_RULE} consists primarily of a set of {CSS_SELECTOR}s and
+		a set of {CSS_DECLARATION}s. The selectors specify what {HTML_TAG}
+		items in the universe of an <html> page are to be "selected" for
+		application of the "rules" (declarations).
+		
+		The intent of this class is to hold the selectors and declarations
+		for one of two purposes:
+		
+		(1) Creation of Current from some source (e.g. Theme, JSON, other) and then
+			application to {HTML_TAG} (or other target recipient).
+		(2) Creation of Current from an {HTML_TAG} and then given to a
+			{CSS_RULE} compiler for the purpose of minification.
+		]"
+	EIS: "src=http://www.w3schools.com/css/css_syntax.asp"
 
 end

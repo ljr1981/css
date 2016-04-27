@@ -23,7 +23,7 @@ inherit
 
 feature -- Access
 
-	selectors: ARRAYED_LIST [STRING]
+	selectors: ARRAYED_LIST [CSS_SELECTOR]
 			-- `selectors' used for Current {CSS_RULE}.
 		attribute
 			create Result.make (10)
@@ -61,19 +61,31 @@ feature -- Settings
 	add_class_selector (a_name: STRING)
 			-- `add_class_selector' to `selectors'.
 		do
-			selectors.force ("." + a_name)
+			selectors.force (create {CSS_SELECTOR}.make_class_based (a_name))
 		end
 
-	add_id_selector (a_name: STRING)
+	add_id_selector (a_id: STRING)
 			-- `add_id_selector' to `selectors'.
 		do
-			selectors.force ("#" + a_name)
+			selectors.force (create {CSS_SELECTOR}.make_id_based (a_id))
+		end
+
+	add_tag_selector (a_name: STRING)
+			-- `add_tag_selector' to `selectors'.
+		do
+			selectors.force (create {CSS_SELECTOR}.make_tag_based (a_name))
+		end
+
+	add_pseudo_class_selector (a_tag, a_name: STRING)
+			-- `add_pseudo_class_selector' with `a_tag' and `a_name'.
+		do
+			selectors.force (create {CSS_SELECTOR}.make_pseudo_class_based (a_tag, a_name))
 		end
 
 	add_all_selector
 			-- `add_all_selector' to `selectors'.
 		do
-			selectors.force ("*")
+			selectors.force (create {CSS_SELECTOR}.make_for_all)
 		end
 
 feature -- Output
@@ -85,7 +97,7 @@ feature -- Output
 			across
 				selectors as ic_selectors
 			loop
-				Result.append_string (ic_selectors.item)
+				Result.append_string (ic_selectors.item.out)
 				Result.append_character (',')
 			end
 			if not Result.is_empty then

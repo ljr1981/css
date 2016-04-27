@@ -101,5 +101,7 @@ feature {NONE} -- Implementation: Constants
 
 	has_argument: BOOLEAN = True
 	void_argument_name: detachable STRING once Result := Void end
+	no_uom: detachable STRING once Result := Void end
+	no_name: detachable STRING once Result := Void end
 
 end

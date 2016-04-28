@@ -15,11 +15,41 @@ inherit
 			out
 		end
 
+	CSS_CONSTANTS
+		undefine
+			default_create,
+			out
+		end
+
 create
 	default_create,
-	make
+	make,
+	make_quoted_value,
+	make_unquoted_value,
+	make_uom_value
 
 feature {NONE} -- Initialization
+
+	make_quoted_value (a_property, a_value: like property)
+			-- `make_quoted_value' with `a_property' and `a_value'.
+			-- my_property:"my_value";
+		do
+			make (a_property, <<[a_value, is_quoted, no_uom, no_name]>>)
+		end
+
+	make_unquoted_value (a_property, a_value: like property)
+			-- `make_unquoted_value' with `a_property' and `a_value'.
+			-- my_property:my_value;
+		do
+			make (a_property, <<[a_value, not is_quoted, no_uom, no_name]>>)
+		end
+
+	make_uom_value (a_property, a_value, a_uom: like property)
+			-- `make_uom_value' with `a_property', `a_value', and `a_uom'.
+			-- my_property:20px;
+		do
+			make (a_property, <<[a_value, not is_quoted, a_uom, no_name]>>)
+		end
 
 	make (a_property: like property; a_values: ARRAY [attached like value_anchor])
 			-- `make' Current with `a_property' name and list of `a_values'.

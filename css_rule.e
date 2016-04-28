@@ -15,6 +15,12 @@ inherit
 			out
 		end
 
+	CSS_CONSTANTS
+		undefine
+			default_create,
+			out
+		end
+
 create
 	default_create,
 	make_separate,
@@ -140,11 +146,11 @@ feature -- Output
 		do
 			create Result.make_empty
 			if is_selector_inclusive then
-				Result.append_string (selectors_out (' '))
+				Result.append_string (selectors_out (space_character))
 			else
-				Result.append_string (selectors_out (','))
+				Result.append_string (selectors_out (comma_character))
 			end
-			Result.append_character ('{')
+			Result.append_character (opening_brace)
 
 			across
 				declarations as ic_declarations
@@ -152,7 +158,7 @@ feature -- Output
 				Result.append_string (ic_declarations.item.out)
 			end
 
-			Result.append_character ('}')
+			Result.append_character (closing_brace)
 			Result.append_string (subordinate_rules_out)
 		end
 
@@ -171,8 +177,8 @@ feature {CSS_RULE} -- Implementation
 			end
 
 			if not Result.is_empty then
-				Result.remove_tail (1)
-				Result.append_character (' ')
+				Result.remove_tail (single_character)
+				Result.append_character (space_character)
 			end
 		end
 
@@ -190,9 +196,9 @@ feature {CSS_RULE} -- Implementation
 	subordinate_rule_out (a_rule: attached like rules_tuple_anchor): STRING
 		do
 			create Result.make_empty
-			Result.append_character (' ')
+			Result.append_character (space_character)
 			if attached a_rule.parent as al_parent then
-				Result.append_string (al_parent.selectors_out (' '))
+				Result.append_string (al_parent.selectors_out (space_character))
 			end
 			Result.append_string (a_rule.rule.out)
 		end

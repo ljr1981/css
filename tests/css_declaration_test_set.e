@@ -55,6 +55,25 @@ feature -- Test routines
 			assert_strings_equal ("font_size", "font-size:12px;", l_declaration.out)
 		end
 
+feature -- Testing: Imporant
+
+	important_declarations_test
+			-- `important_declarations_test'.
+		local
+			l_declaration: CSS_DECLARATION
+		do
+			create l_declaration
+			l_declaration.set_immutable
+			assert_booleans_equal ("important_and_immutable", l_declaration.is_important, l_declaration.is_immutable)
+			create l_declaration.make_quoted_value ("color", "black")
+			l_declaration.set_immutable
+			assert_strings_equal ("important_color", important_color_output, l_declaration.out)
+		end
+
+feature {NONE} -- Testing: Imporant
+
+	important_color_output: STRING = "color:%"black%" !important;"
+
 end
 
 

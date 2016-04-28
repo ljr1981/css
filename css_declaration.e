@@ -92,6 +92,35 @@ feature {CSS_RULE, TEST_SET_BRIDGE} -- Settings
 			set: values.has (a_value)
 		end
 
+	set_immutable
+		do
+			is_immutable := True
+			is_important := is_immutable
+		ensure
+			set: is_immutable and is_important
+		end
+
+	set_mutable
+		do
+			is_immutable := False
+			is_important := is_immutable
+		ensure
+			reset: not is_immutable and not is_important
+		end
+
+feature {CSS_RULE, TEST_SET_BRIDGE} -- Queries
+
+	is_important,
+	is_immutable: BOOLEAN
+			-- `is_important' (also `is_immutable')?
+		note
+			design: "[
+				If a rule is !important, then it helps to make it "immutable".
+				]"
+		attribute
+			Result := False
+		end
+
 feature {CSS_RULE, TEST_SET_BRIDGE} -- Output
 
 	out: STRING
@@ -101,25 +130,31 @@ feature {CSS_RULE, TEST_SET_BRIDGE} -- Output
 		do
 			create Result.make_empty
 			Result.append_string (property)
-			Result.append_character (':')
+			Result.append_character (colon_character)
 			across
 				values as ic_values
 			loop
 				if ic_values.item.is_quoted then
-					Result.append_character ('"')
+					Result.append_character (double_quote_character)
 				end
 				Result.append_string (ic_values.item.value)
 				if ic_values.item.is_quoted then
-					Result.append_character ('"')
+					Result.append_character (double_quote_character)
 				end
 				if attached ic_values.item.unit_of_measure as al_uom then
 					Result.append_string (al_uom)
 				end
-				Result.append_character (' ')
+				Result.append_character (space_character)
 			end
-			check Result [Result.count] = ' ' end
-			Result.remove_tail (1)
-			Result.append_character (';')
+			check Result [Result.count] = space_character end
+			Result.remove_tail (single_character)
+
+			if is_immutable and is_important then
+				Result.append_character (space_character)
+				Result.append_string (important_keyword)
+			end
+
+			Result.append_character (semicolon_character)
 		end
 
 feature {NONE} -- Implementation: Anchors

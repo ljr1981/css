@@ -105,4 +105,14 @@ feature {NONE} -- Implementation: Constants
 	no_uom: detachable STRING once Result := Void end
 	no_name: detachable STRING once Result := Void end
 
+	comma_character: CHARACTER = ','
+	colon_character: CHARACTER = ':'
+	semicolon_character: CHARACTER = ';'
+	space_character: CHARACTER = ' '
+	double_quote_character: CHARACTER = '"'
+	important_keyword: STRING = "!important"
+	single_character: INTEGER = 1
+	opening_brace: CHARACTER = '{'
+	closing_brace: CHARACTER = '}'
+
 end

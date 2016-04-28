@@ -10,6 +10,7 @@ deferred class
 	CSS_DOCS
 
 note
+	EIS: "src=https://speakerdeck.com/csswizardry/css-for-software-engineers-for-css-developers"
 	design: "[
 		HTML provides structure for data: DOM
 			HTML structures can be isolated into components (e.g. navigation)

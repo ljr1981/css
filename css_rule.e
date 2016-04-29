@@ -75,10 +75,10 @@ feature -- Access
 
 feature -- Settings: Selectors
 
-	add_rule (a_rule: CSS_RULE; a_parent: detachable CSS_RULE)
-			-- `add_rule' `a_rule' to `rules'.
+	add_sub_rule (a_rule: CSS_RULE)
+			-- `add_sub_rule' `a_rule' to `rules'.
 		do
-			rules.force ([a_parent, a_rule])
+			rules.force ([Current, a_rule])
 		end
 
 	add_class_selector (a_name: STRING)

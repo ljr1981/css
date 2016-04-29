@@ -84,8 +84,8 @@ Transforms to:
 			l_hover_rule.add_pseudo_class_selector ("a", "hover")
 			l_hover_rule.declarations.force (create {CSS_DECLARATION}.make_quoted_value ("color", "red"))
 
-			l_rule.add_rule (l_font_rule, l_rule)
-			l_rule.add_rule (l_hover_rule, l_rule)
+			l_rule.add_sub_rule (l_font_rule)
+			l_rule.add_sub_rule (l_hover_rule)
 
 			assert_strings_equal ("rule_sub_hover", "#main {color:%"black%";} #main a {font-weight:bold;} #main a:hover {color:%"red%";}", l_rule.out)
 		end
@@ -97,6 +97,7 @@ Transforms to:
 			l_main_p,
 			l_redbox: CSS_RULE
 		do
+				-- Version #1
 			create l_main_p
 			l_main_p.add_id_selector ("main")
 			l_main_p.add_tag_selector ("p")
@@ -109,9 +110,10 @@ Transforms to:
 			l_redbox.declarations.force (create {CSS_DECLARATION}.make_unquoted_value ("background-color", "#ff0000"))
 			l_redbox.declarations.force (create {CSS_DECLARATION}.make_unquoted_value ("color", "#000000"))
 
-			l_main_p.add_rule (l_redbox, l_main_p)
+			l_main_p.add_sub_rule (l_redbox)
 			assert_strings_equal ("nested_css", nested_example, l_main_p.out)
 
+				-- Version #2
 			create l_main_p.make_inclusive (<<create {CSS_SELECTOR}.make_id_based ("main"),
 												create {CSS_SELECTOR}.make_tag_based ("p")>>,
 											<<create {CSS_DECLARATION}.make_unquoted_value ("color", "#00ff00"),
@@ -120,7 +122,7 @@ Transforms to:
 											<<create {CSS_DECLARATION}.make_unquoted_value ("background-color", "#ff0000"),
 												create {CSS_DECLARATION}.make_unquoted_value ("color", "#000000")>>)
 
-			l_main_p.add_rule (l_redbox, l_main_p)
+			l_main_p.add_sub_rule (l_redbox)
 			assert_strings_equal ("nested_css", nested_example, l_main_p.out)
 		end
 

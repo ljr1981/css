@@ -45,7 +45,9 @@ feature -- Test routines
 		do
 				-- Mix up the creations and settings
 				-- Effort to break the class invariant
-			create l_selector
+			create l_selector.default_create
+			check attached l_selector end
+			
 			create l_selector.make_for_all
 			check attached l_selector.tag_name as al_name then assert_strings_equal ("tag0", "*", al_name) end
 			l_selector.set_pseudo_class_name ("a", "hover")

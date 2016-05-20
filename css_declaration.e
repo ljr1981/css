@@ -53,6 +53,13 @@ feature {NONE} -- Initialization
 
 	make (a_property: like property; a_values: ARRAY [attached like value_anchor])
 			-- `make' Current with `a_property' name and list of `a_values'.
+			-- Example: margin: 20px 0; <-- "margin" = `property' and "20px" "0" are `values'.
+			-- << TUPLE: [Value], [Is_quoted], [Uom], [Value_name] >>
+			-- 	value 		= A value you're setting on `a_property'.
+			--	is_quote 	= True/False if in double-quotes or not.
+			--	UOM 		= Unit of measure, as in 20 = value, "px" = UOM
+			--	Value_name 	= The name of the value. Not generated to CSS.
+			-- See also: `value_anchor'
 		do
 			property := a_property
 			across a_values as ic loop values.force (ic.item) end
@@ -62,12 +69,16 @@ feature {CSS_RULE, TEST_SET_BRIDGE} -- Access
 
 	property: STRING
 			-- `property' of Current {CSS_DECLARATION}.
+			-- Example: margin: 20px 0; <-- "margin" is the `property'.
+			-- See also: `values'.
 		attribute
 			create Result.make_empty
 		end
 
 	values: ARRAYED_LIST [attached like value_anchor]
 			-- `values' of `property' as {STRING}s.
+			-- Example: margin: 20px 0; <-- "20px" and "0" are `values'.
+			-- See also: `property'.
 		attribute
 			create Result.make (5)
 		end
@@ -113,6 +124,8 @@ feature {CSS_RULE, TEST_SET_BRIDGE} -- Queries
 	is_important,
 	is_immutable: BOOLEAN
 			-- `is_important' (also `is_immutable')?
+			-- Example: !important overrides any other setting!
+			-- Set and use this with caution.
 		note
 			design: "[
 				If a rule is !important, then it helps to make it "immutable".

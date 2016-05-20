@@ -20,8 +20,6 @@ inherit
 			out
 		end
 
---	HTML_CONSTANTS
-
 create
 	default_create,
 	make_for_all,
@@ -40,24 +38,28 @@ feature {NONE} -- Initialization
 
 	make_class_based (a_name: attached like class_name)
 			-- `make_as_class_based' with `a_name' to `class_name'.
+			-- Example: .Main <-- where the first selector is a `class_name'.
 		do
 			set_class_name (a_name)
 		end
 
 	make_id_based (a_id: attached like id)
 			-- `make_id_based' with `a_id' to `id'.
+			-- Example: #Unique-id <-- where the first selector is an `id'.
 		do
 			set_id (a_id)
 		end
 
 	make_tag_based (a_name: attached like tag_name)
 			-- `make_as_class_based' with `a_name' to `tag_name'.
+			-- Example: form <-- where the first selector is just a tag name.
 		do
 			set_tag_name (a_name)
 		end
 
 	make_pseudo_class_based (a_tag, a_name: attached like pseudo_class_name)
 			-- `make_as_class_based' with `a_name' to `pseudo_class_name'.
+			-- Example: a:hover <-- where the first selector is a Psuedo-class.
 		do
 			set_pseudo_class_name (a_tag, a_name)
 		end
@@ -158,15 +160,12 @@ feature {NONE} -- Implementation: Outputs
 
 	id_selector_out (a_tag_name: STRING): STRING
 			-- `id_selector_out' for Current {CSS_SELECTOR} from `a_tag_name'.
-		require
---			valid_tag: valid_tags.has (a_tag_name)
 		do
 			Result := formatted_selector_out (id_character, a_tag_name)
 		end
 
 	pseudo_class_selector_out (a_tag_name, a_pseudo_class_name: STRING): STRING
 		require
---			valid_tag: valid_tags.has (a_tag_name)
 			valid_pseudo_class: across pseudo_classes as ic some ic.item.name.same_string (a_pseudo_class_name) end
 		do
 			Result := formatted_pseudo_selector_out (a_tag_name, pseudo_class_character.out, a_pseudo_class_name)
@@ -179,7 +178,6 @@ feature {NONE} -- Implementation: Outputs
 
 	pseudo_element_selector_out (a_tag_name, a_pseudo_element_name: STRING): STRING
 		require
---			valid_tag: valid_tags.has (a_tag_name)
 			valid_pseudo_class: across pseudo_elements as ic some ic.item.name.same_string (a_pseudo_element_name) end
 		do
 			Result := formatted_pseudo_selector_out (a_tag_name, pseudo_class_character.out, a_pseudo_element_name)
@@ -202,7 +200,6 @@ feature {NONE} -- Implementation
 
 	formatted_pseudo_selector_out (a_tag_name, a_resolver, a_pseudo_class_name: STRING): STRING
 		require
---			valid_tag: valid_tags.has (a_tag_name)
 			valid_pseudo_class: across pseudo_classes as ic some ic.item.name.same_string (a_pseudo_class_name) end
 			valid_resolver: a_resolver.same_string (Pseudo_attribute_string) xor
 								(a_resolver.count = 1 and then a_resolver [1] = Pseudo_class_character)

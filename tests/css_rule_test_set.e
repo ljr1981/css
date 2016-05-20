@@ -101,7 +101,7 @@ Transforms to:
 			create l_main_p
 			l_main_p.add_id_selector ("main")
 			l_main_p.add_tag_selector ("p")
-			l_main_p.set_inclusive
+			l_main_p.set_selectors_to_space_delimited
 			l_main_p.declarations.force (create {CSS_DECLARATION}.make_unquoted_value ("color", "#00ff00"))
 			l_main_p.declarations.force (create {CSS_DECLARATION}.make_unquoted_value ("width", "97%%"))
 
@@ -114,11 +114,11 @@ Transforms to:
 			assert_strings_equal ("nested_css", nested_example, l_main_p.out)
 
 				-- Version #2
-			create l_main_p.make_inclusive (<<create {CSS_SELECTOR}.make_id_based ("main"),
+			create l_main_p.make_with_selectors_space_delimited (<<create {CSS_SELECTOR}.make_id_based ("main"),
 												create {CSS_SELECTOR}.make_tag_based ("p")>>,
 											<<create {CSS_DECLARATION}.make_unquoted_value ("color", "#00ff00"),
 												create {CSS_DECLARATION}.make_unquoted_value ("width", "97%%")>>)
-			create l_redbox.make_separate (<<create {CSS_SELECTOR}.make_class_based ("redbox")>>,
+			create l_redbox.make_selectors_comma_delimited (<<create {CSS_SELECTOR}.make_class_based ("redbox")>>,
 											<<create {CSS_DECLARATION}.make_unquoted_value ("background-color", "#ff0000"),
 												create {CSS_DECLARATION}.make_unquoted_value ("color", "#000000")>>)
 

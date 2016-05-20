@@ -21,6 +21,12 @@ inherit
 			out
 		end
 
+	CSS_RULE_ACCESSOR
+		undefine
+			default_create,
+			out
+		end
+
 create
 	default_create,
 	make_selectors_comma_delimited,
@@ -201,7 +207,7 @@ feature -- Output
 			Result.append_string (subordinate_rules_out)
 		end
 
-feature {CSS_RULE} -- Implementation
+feature {CSS_RULE_ACCESSOR} -- Implementation
 
 	selectors_out (a_separator: CHARACTER): STRING
 			-- `selectors_out' using `a_separator'.

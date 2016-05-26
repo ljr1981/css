@@ -6,7 +6,26 @@ note
 class
 	CSS_CONSTANTS
 
-feature -- Access
+feature -- Constants
+
+	absolute_kw: STRING = "absolute"
+	background_kw: STRING = "background"
+	border_bottom_kw: STRING = "border-bottom"
+	border_top_kw: STRING = "border-top"
+	bottom_kw: STRING = "bottom"
+	center_kw: STRING = "center"
+	height_kw: STRING = "height"
+	left_kw: STRING = "left"
+	margin_kw: STRING = "margin"
+	padding_kw: STRING = "padding"
+	position_kw: STRING = "position"
+	px_uom_kw: STRING = "px"
+	right_kw: STRING = "right"
+	solid_kw: STRING = "solid"
+	transparent_kw: STRING = "transparent"
+	top_kw: STRING = "top"
+	width_kw: STRING = "width"
+	zoom_kw: STRING = "zoom"
 
 	pseudo_classes: ARRAYED_LIST [TUPLE [name: STRING; has_argument: BOOLEAN; opt_argument_name: detachable STRING]]
 			-- `pseudo_classes' list as a {TUPLE} of `name', `has_argument', an `opt_argument_name'.

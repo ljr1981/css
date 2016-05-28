@@ -37,4 +37,13 @@ feature -- Test routines
 			do_nothing -- yet ...
 		end
 
+	CSS_color_constants_test
+			-- ??
+		local
+			l_const: CSS_COLOR_CONSTANTS
+		do
+			create l_const
+			assert_strings_equal ("YellowGreen", "#9ACD32", l_const.yellowgreen)
+		end
+
 end

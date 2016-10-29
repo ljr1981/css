@@ -24,6 +24,7 @@ feature -- Constants
 	solid_kw: STRING = "solid"
 	transparent_kw: STRING = "transparent"
 	top_kw: STRING = "top"
+	url_kw: STRING = "url"
 	width_kw: STRING = "width"
 	zoom_kw: STRING = "zoom"
 

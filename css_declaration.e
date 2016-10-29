@@ -65,7 +65,7 @@ feature {NONE} -- Initialization
 			across a_values as ic loop values.force (ic.item) end
 		end
 
-feature {CSS_RULE, TEST_SET_BRIDGE} -- Access
+feature -- Access
 
 	property: STRING
 			-- `property' of Current {CSS_DECLARATION}.
@@ -134,7 +134,7 @@ feature {CSS_RULE, TEST_SET_BRIDGE} -- Queries
 			Result := False
 		end
 
-feature {CSS_RULE, TEST_SET_BRIDGE} -- Output
+feature -- Output
 
 	out: STRING
 			-- <Precursor>

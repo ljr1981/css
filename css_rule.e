@@ -5,6 +5,8 @@ note
 	design: "[
 		See notes at the end of this class.
 		]"
+	EIS: "name=css_rule",
+			"src=https://developer.mozilla.org/en-US/docs/Web/CSS/Reference"
 
 class
 	CSS_RULE

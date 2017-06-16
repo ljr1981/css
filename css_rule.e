@@ -17,7 +17,7 @@ inherit
 			out
 		end
 
-	CSS_CONSTANTS
+	CSS
 		undefine
 			default_create,
 			out

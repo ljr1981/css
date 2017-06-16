@@ -15,7 +15,7 @@ inherit
 			out
 		end
 
-	CSS_CONSTANTS
+	CSS
 		undefine
 			out
 		end

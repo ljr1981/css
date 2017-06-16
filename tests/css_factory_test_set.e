@@ -31,7 +31,7 @@ inherit
 			default_create
 		end
 
-	CSS_CONSTANTS
+	CSS
 		undefine
 			default_create
 		end

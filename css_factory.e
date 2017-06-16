@@ -2,7 +2,7 @@ class
 	CSS_FACTORY
 
 inherit
-	CSS_CONSTANTS
+	CSS
 
 feature
 

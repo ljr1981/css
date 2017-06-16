@@ -1,10 +1,10 @@
 note
 	description: "[
-		Representation of {CSS_CONSTANTS}.
+		Representation of {CSS}.
 		]"
 
 class
-	CSS_CONSTANTS
+	CSS
 
 feature -- Constants
 
@@ -119,7 +119,8 @@ feature -- Constants
 
 feature {NONE} -- Implementation: Constants
 
-	is_quoted: BOOLEAN = True
+	is_quoted, quoted, isquoted: BOOLEAN = True
+	unquoted, noquotes: BOOLEAN = False
 	has_argument: BOOLEAN = True
 	void_argument_name: detachable STRING once Result := Void end
 	no_uom: detachable STRING once Result := Void end

@@ -1,0 +1,15 @@
+package css
+
+project
+	css = "css.ecf"
+
+note
+	title: CSS Library
+	description: "A library for handling CSS3"
+
+	tags: css,eiffel,html,web,ewf
+	license: Eiffel Forum License v2 
+	copyright: 2018 Larry Rix
+	link[license]: http://www.eiffel.com/licensing/forum.txt external
+
+end
